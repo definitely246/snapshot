@@ -1,9 +1,12 @@
-<?php include ("headers.js") ?>
 
 var address = "<?= $options->url ?>";
 var output = "<?= $options->path ?>";
 var paperSize = "<?= $options->size ?>";
 var zoomFactor = "<?= $options->zoom ?>";
+var cookie = <?= $options->cookie ?>;
+var headers = {};
+
+<?php include ("headers.js") ?>
 
 page.viewportSize = { width: 600, height: 600 };
 

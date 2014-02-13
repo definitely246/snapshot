@@ -1,7 +1,16 @@
 var page = require('webpage').create();
 var system = require('system');
 var response = {}
-var headers = {};
+
+if (typeof cookie !== 'undefined' && cookie != null)
+{
+    phantom.addCookie(cookie);
+}
+
+if (typeof headers !== 'undefined')
+{
+	page.customHeaders = headers;
+}
 
 page.settings.resourceTimeout = "30s";
 
@@ -16,4 +25,14 @@ page.onResourceReceived = function (r)
     if (!response.status) response = r;
 };
 
-page.customHeaders = headers ? headers : {};
+phantom.onError = function(e)
+{
+	response = e;
+	phantom.exit();
+};
+
+page.onError = function(e)
+{
+	response = e;
+	phantom.exit();
+};
