@@ -1,6 +1,6 @@
 <?php namespace Definitely246\Snapshot;
 
-class ScreenshotTest extends \PHPUnit_Framework_TestCase
+class PdfScreenshotTest extends \PHPUnit_Framework_TestCase
 {
 	public function setUp()
 	{
@@ -21,7 +21,7 @@ class ScreenshotTest extends \PHPUnit_Framework_TestCase
 		$view = new PhpView($this->paths->rasterize);
 		$engine = new PhantomEngine($this->paths->phantomjs, $this->paths->scripts);
 
-		return new Snapshot(new PdfSnapshot($engine, $view));
+		return new PdfSnapshot($engine, $view);
 	}
 
 	/**
@@ -31,7 +31,8 @@ class ScreenshotTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testBasicExample()
 	{
-		$outcome = $this->screenshot()->pdf($this->paths->testurl, $this->paths->pdf);
+		$outcome = $this->screenshot()->snapshot($this->paths->testurl, $this->paths->pdf);
 		$this->assertEquals($this->paths->pdf, $outcome);
 	}
+
 }
