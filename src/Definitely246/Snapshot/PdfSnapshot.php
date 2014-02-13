@@ -27,9 +27,9 @@ class PdfSnapshot
 	 * Create script file with given view/options and then execute that
 	 * script with given engine.
 	 */
-	public function snapshot($url, $path, $size = "8.5in*11in", $zoom = "")
+	public function snapshot($url, $path, $options = array())
 	{
-		$options = $this->getOptions($url, $path, $size, $zoom);
+		$options = $this->getOptions($url, $path, $options);
 
 		$script = $this->view->render(compact('options'));
 
@@ -51,15 +51,24 @@ class PdfSnapshot
 	/**
 	 * Gets the options for this class
 	 */
-	private function getOptions($url, $path, $size, $zoom)
+	private function getOptions($url, $path, $options)
 	{
-		$options = new \StdClass;
+		$container = new \StdClass;
 
-		$options->url = $url;
-		$options->path = $path;
-		$options->size = $size;
-		$options->zoom = $zoom;
-		return $options;
+		$container->url = $url;
+		$container->path = $path;
+
+		$options['size'] = !array_key_exists('size', $options) ? "8.5in*11in" : $options['size'];
+		$options['zoom'] = !array_key_exists('zoom', $options) ? "" : $options['zoom'];
+		$options['cookie'] = !array_key_exists('cookie', $options) ? "null" : $options['cookie'];
+		$options['headers'] = !array_key_exists('headers', $options) ? "{}" : $options['headers'];
+
+		foreach ($options as $optionKey => $optionValue)
+		{
+			$container->$optionKey = $optionValue;
+		}
+
+		return $container;
 	}
 
 }

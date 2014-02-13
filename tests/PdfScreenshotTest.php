@@ -9,6 +9,14 @@ class PdfScreenshotTest extends \PHPUnit_Framework_TestCase
 		$this->pdf = "$base/files/test.pdf";
 	}
 
+	public function tearDown()
+	{
+		if (file_exists($this->pdf))
+		{
+			unlink($this->pdf);
+		}
+	}
+
 	public function screenshot()
 	{
 		return new PdfSnapshot;

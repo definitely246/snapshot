@@ -24,15 +24,3 @@ page.onResourceReceived = function (r)
 {
     if (!response.status) response = r;
 };
-
-phantom.onError = function(e)
-{
-	response = e;
-	phantom.exit();
-};
-
-page.onError = function(e)
-{
-	response = e;
-	phantom.exit();
-};
