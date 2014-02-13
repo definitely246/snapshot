@@ -35,9 +35,14 @@ class PdfSnapshot
 
 		$response = json_decode($this->engine->execute($script));
 
+		if (!isset($response->status))
+		{
+			throw new Exceptions\BadResponseStatusException("Unknown response status!", $response);
+		}
+
 		if ($response->status !== 200)
 		{
-			throw BadResponseStatusException("Got a response status of " . $response->status, $response);
+		 	throw new Exceptions\BadResponseStatusException("Got a response status of " . $response->status, $response);
 		}
 
 		return $path;
