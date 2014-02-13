@@ -10,11 +10,11 @@ class ScreenshotTest extends PHPUnit_Framework_TestCase
 		$base = __DIR__;
 		$paths = new StdClass;
 
-		$paths->scripts = "$base/scripts";
+		$paths->scripts = "$base/files";
 		$paths->rasterize = "$base/../src/views/rasterize.js";
 		$paths->phantomjs = "$base/../bin/phantomjs";
 		$paths->testurl = "http://www.keltdockins.com";
-		$paths->pdf = "$base/scripts/test.pdf";
+		$paths->pdf = "$base/files/test.pdf";
 
 		$this->paths = $paths;
 	}

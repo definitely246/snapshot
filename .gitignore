@@ -1,5 +1,4 @@
 /vendor
-/tests/scripts/*
 composer.phar
 composer.lock
 .DS_Store
