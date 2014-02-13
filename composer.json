@@ -1,0 +1,22 @@
+{
+    "name": "definitely246/snapshot",
+    "description": "Creates a snapshot of urls for you.",
+    "license" : "MIT",
+    "authors": [
+        {
+            "name": "Kelt Dockins",
+            "email": "kelt@dockins.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "autoload": {
+        "classmap": [
+        ],
+        "psr-0": {
+            "Definitely246\\Snapshot\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
