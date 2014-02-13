@@ -15,10 +15,10 @@ class PdfSnapshot
 	/**
 	 * Construct a new Screenshot with a phantomjs path and script path
 	 */
-	public function __construct($engine, $view)
+	public function __construct($engine = null, $view = null)
 	{
-		$this->engine = $engine;
-		$this->view = $view;
+		$this->engine = $engine ?: new PhantomEngine;
+		$this->view = $view ?: new Views\RasterizeView;
 	}
 
 	/**
@@ -29,7 +29,7 @@ class PdfSnapshot
 	{
 		$options = $this->getOptions($url, $path, $size, $zoom);
 
-		$script = $this->view->get(compact('options'));
+		$script = $this->view->render(compact('options'));
 
 		$response = $this->engine->execute($script);
 

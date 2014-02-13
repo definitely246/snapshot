@@ -5,23 +5,13 @@ class PdfScreenshotTest extends \PHPUnit_Framework_TestCase
 	public function setUp()
 	{
 		$base = __DIR__;
-		$paths = new \StdClass;
-
-		$paths->scripts = "$base/files";
-		$paths->rasterize = "$base/../src/views/rasterize.js";
-		$paths->phantomjs = "$base/../bin/phantomjs";
-		$paths->testurl = "http://www.keltdockins.com";
-		$paths->pdf = "$base/files/test.pdf";
-
-		$this->paths = $paths;
+		$this->url = "http://www.keltdockins.com";
+		$this->pdf = "$base/files/test.pdf";
 	}
 
 	public function screenshot()
 	{
-		$view = new PhpView($this->paths->rasterize);
-		$engine = new PhantomEngine($this->paths->phantomjs, $this->paths->scripts);
-
-		return new PdfSnapshot($engine, $view);
+		return new PdfSnapshot;
 	}
 
 	/**
@@ -31,8 +21,8 @@ class PdfScreenshotTest extends \PHPUnit_Framework_TestCase
 	 */
 	public function testBasicExample()
 	{
-		$outcome = $this->screenshot()->snapshot($this->paths->testurl, $this->paths->pdf);
-		$this->assertEquals($this->paths->pdf, $outcome);
+		$outcome = $this->screenshot()->snapshot($this->url, $this->pdf);
+		$this->assertEquals($this->pdf, $outcome);
 	}
 
 }

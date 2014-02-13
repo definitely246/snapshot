@@ -15,10 +15,10 @@ class PhantomEngine
 	/**
 	 * Construct a new instance with a phantomjs path and script path
 	 */
-	public function __construct($phantomPath, $scriptsPath)
+	public function __construct($phantomPath = null, $scriptsPath = null)
 	{
-		$this->phantomPath = $phantomPath;
-		$this->scriptsPath = $scriptsPath;
+		$this->phantomPath = $phantomPath ?: __DIR__ . '/../../../bin/phantomjs';
+		$this->scriptsPath = $scriptsPath ?: sys_get_temp_dir();
 	}
 
 	/**
