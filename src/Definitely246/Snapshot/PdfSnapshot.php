@@ -1,5 +1,7 @@
 <?php namespace Definitely246\Snapshot;
 
+use Codesleeve\Executejs\Runtimes\PhantomJsRuntime;
+
 class PdfSnapshot
 {
 	/**
@@ -17,7 +19,7 @@ class PdfSnapshot
 	 */
 	public function __construct($engine = null, $view = null)
 	{
-		$this->engine = $engine ?: new PhantomEngine;
+		$this->engine = $engine ?: new PhantomJsRuntime;
 		$this->view = $view ?: new Views\RasterizeView;
 	}
 
@@ -31,7 +33,7 @@ class PdfSnapshot
 
 		$script = $this->view->render(compact('options'));
 
-		$response = $this->engine->execute($script);
+		$response = json_decode($this->engine->execute($script));
 
 		if ($response->status !== 200)
 		{
