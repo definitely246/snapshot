@@ -30,7 +30,7 @@ class PdfScreenshotTest extends \PHPUnit_Framework_TestCase
 
 	public function testAsyncExample()
 	{
-		$outcome = $this->screenshot()->snapshot($this->url, $this->pdf, array('async' => true));
+		$outcome = $this->screenshot()->snapshotInBackground($this->url, $this->pdf);
 		$this->assertEquals($this->pdf, $outcome);
 	}
 }

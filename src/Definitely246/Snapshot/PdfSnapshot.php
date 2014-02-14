@@ -66,12 +66,12 @@ class PdfSnapshot
 	}
 
 	/**
-	 * Parse the results and ensure they are valid
+	 * Parse the response and ensure they are valid
 	 * 
-	 * @param  [type] $results [description]
+	 * @param  [type] $response [description]
 	 * @return [type]          [description]
 	 */
-	public function parseResults($results)
+	public function parseResponse($response)
 	{
 		if (!isset($response->status))
 		{
