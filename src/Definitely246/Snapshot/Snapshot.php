@@ -21,6 +21,6 @@ class Snapshot
 	 */
 	public function pdf($url, $path, $options = array())
 	{
-		return $this->pdfSnapshot->snapshot($url, $path, $options = array());
+		return $this->pdfSnapshot->snapshot($url, $path);
 	}
 }
