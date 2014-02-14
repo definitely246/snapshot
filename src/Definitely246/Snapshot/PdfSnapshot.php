@@ -33,7 +33,12 @@ class PdfSnapshot
 
 		$script = $this->view->render(compact('options'));
 
-		$response = json_decode($this->engine->execute($script));
+		$response = json_decode($this->engine->execute($script, array('async' => $options->async)));
+
+		if ($options->async)
+		{
+			return $path;
+		}
 
 		if (!isset($response->status))
 		{
@@ -62,6 +67,7 @@ class PdfSnapshot
 		$options['zoom'] = !array_key_exists('zoom', $options) ? "" : $options['zoom'];
 		$options['cookie'] = !array_key_exists('cookie', $options) ? "null" : $options['cookie'];
 		$options['headers'] = !array_key_exists('headers', $options) ? "{}" : $options['headers'];
+		$options['async'] = !array_key_exists('async', $options) ? false : $options['async'];
 
 		foreach ($options as $optionKey => $optionValue)
 		{

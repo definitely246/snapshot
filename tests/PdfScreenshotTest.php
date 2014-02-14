@@ -22,15 +22,15 @@ class PdfScreenshotTest extends \PHPUnit_Framework_TestCase
 		return new PdfSnapshot;
 	}
 
-	/**
-	 * A basic functional test example.
-	 *
-	 * @return void
-	 */
 	public function testBasicExample()
 	{
 		$outcome = $this->screenshot()->snapshot($this->url, $this->pdf);
 		$this->assertEquals($this->pdf, $outcome);
 	}
 
+	public function testAsyncExample()
+	{
+		$outcome = $this->screenshot()->snapshot($this->url, $this->pdf, array('async' => true));
+		$this->assertEquals($this->pdf, $outcome);
+	}
 }
