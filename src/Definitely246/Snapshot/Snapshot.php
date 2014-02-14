@@ -23,4 +23,14 @@ class Snapshot
 	{
 		return $this->pdfSnapshot->snapshot($url, $path, $options);
 	}
+
+	/**
+	 * Create script file with given view/options and then execute that
+	 * script with given engine.
+	 */
+	public function pdfInBackground($url, $path, $options = array())
+	{
+		return $this->pdfSnapshot->snapshotInBackground($url, $path, $options);
+	}
+
 }

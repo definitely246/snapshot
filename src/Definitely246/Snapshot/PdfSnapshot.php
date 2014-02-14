@@ -26,6 +26,12 @@ class PdfSnapshot
 	/**
 	 * Create script file with given view/options and then execute that
 	 * script with given engine.
+	 * 
+	 * @param  string $url
+	 * @param  string $path
+	 * @param  array  $options
+	 * 
+	 * @return $path
 	 */
 	public function snapshot($url, $path, $options = array())
 	{
@@ -33,24 +39,49 @@ class PdfSnapshot
 
 		$script = $this->view->render(compact('options'));
 
-		$response = json_decode($this->engine->execute($script, array('async' => $options->async)));
+		$response = json_decode($this->engine->execute($script));
 
-		if ($options->async)
-		{
-			return $path;
-		}
+		$this->parseResponse($response);
 
+		return $path;
+	}
+
+	/**
+	 * Create script file with given view/options and then execute in background
+	 * 
+	 * @param  string $url
+	 * @param  string $path
+	 * @param  array  $options
+	 * @return $path
+	 */
+	public function snapshotInBackground($url, $path, $options = array())
+	{
+		$options = $this->getOptions($url, $path, $options);
+
+		$script = $this->view->render(compact('options'));
+
+		list($pid, $result) = $this->engine->executeInBackground($script);
+
+		return $path;
+	}
+
+	/**
+	 * Parse the results and ensure they are valid
+	 * 
+	 * @param  [type] $results [description]
+	 * @return [type]          [description]
+	 */
+	public function parseResults($results)
+	{
 		if (!isset($response->status))
 		{
 			throw new Exceptions\BadResponseStatusException("Unknown response status!", $response);
-		}
+		}		
 
 		if ($response->status !== 200)
 		{
 		 	throw new Exceptions\BadResponseStatusException("Got a response status of " . $response->status, $response);
 		}
-
-		return $path;
 	}
 
 	/**
@@ -67,7 +98,6 @@ class PdfSnapshot
 		$options['zoom'] = !array_key_exists('zoom', $options) ? "" : $options['zoom'];
 		$options['cookie'] = !array_key_exists('cookie', $options) ? "null" : $options['cookie'];
 		$options['headers'] = !array_key_exists('headers', $options) ? "{}" : $options['headers'];
-		$options['async'] = !array_key_exists('async', $options) ? false : $options['async'];
 
 		foreach ($options as $optionKey => $optionValue)
 		{
